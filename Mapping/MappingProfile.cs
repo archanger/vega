@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using vega.Controllers.Resources;
-using vega.Models;
+using vega.Core.Models;
 
 namespace vega.Mapping
 {
@@ -11,12 +11,20 @@ namespace vega.Mapping
         public MappingProfile()
         {
             CreateMap<Make, MakeResource>();
-            CreateMap<Model, ModelResource>();
-            CreateMap<Vehicle, VehicleResource>()
+            CreateMap<Make, KeyValuePairResource>();
+            CreateMap<Model, KeyValuePairResource>();
+            CreateMap<Feature, KeyValuePairResource>();
+            CreateMap<Vehicle, SaveVehicleResource>()
             .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone}))
             .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => vf.FeatureId)));
 
-            CreateMap<VehicleResource, Vehicle>()
+            CreateMap<Vehicle, VehicleResource>()
+            .ForMember(vr => vr.Make, opt => opt.MapFrom(v => v.Model.Make))
+            .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone}))
+            .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name})));
+
+
+            CreateMap<SaveVehicleResource, Vehicle>()
             .ForMember(v => v.Id, opt => opt.Ignore())
             .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
             .ForMember(v => v.ContactEmail, opt => opt.MapFrom(vr => vr.Contact.Email))
