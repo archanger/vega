@@ -2,6 +2,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ToastyModule } from 'ng2-toasty';
 
 import { VehicleService } from './services/vehicle.service';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
@@ -27,6 +28,7 @@ import { CounterComponent } from './components/counter/counter.component';
         CommonModule,
         HttpModule,
         FormsModule,
+        ToastyModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'vehicle/new', component: VehicleFormComponent},
