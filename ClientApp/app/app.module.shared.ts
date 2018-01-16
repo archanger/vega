@@ -1,6 +1,7 @@
 import { FormsModule } from '@angular/forms';
+import * as Raven from 'raven-js';
 
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 
@@ -14,6 +15,11 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { AppErrorHandler } from './components/app/app.error-handler';
+
+Raven
+  .config('https://4d71486fe6c14a55ae43ff1f28672d5c@sentry.io/272515')
+  .install();
 
 @NgModule({
     declarations: [
@@ -32,6 +38,7 @@ import { CounterComponent } from './components/counter/counter.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'vehicle/new', component: VehicleFormComponent},
+            { path: 'vehicle/:id', component: VehicleFormComponent},
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
@@ -39,6 +46,7 @@ import { CounterComponent } from './components/counter/counter.component';
         ])
     ],
     providers: [
+        { provide: ErrorHandler, useClass: AppErrorHandler },
         VehicleService
     ]
 })

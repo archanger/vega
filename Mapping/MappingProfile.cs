@@ -32,7 +32,7 @@ namespace vega.Mapping
             .ForMember(v => v.Features, opt => opt.Ignore())
             .AfterMap((vr, v) => {
 
-                var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
+                var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId)).ToList();
 
                 foreach (var f in removedFeatures) {
                     v.Features.Remove(f);
