@@ -77,7 +77,7 @@ namespace vega.Controllers
         [HttpGet]
         public async Task<IEnumerable<PhotoResource>> GetPhotos(int vehicleId)
         {
-            var photos = await photoRepository.GetPhotos(vehicleId);
+        var photos = await photoRepository.GetPhotos(vehicleId);
             return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
         }
     }

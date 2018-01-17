@@ -6,6 +6,7 @@ using vega.Controllers.Resources;
 using vega.Core.Models;
 using vega.Persistance;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace vega.Controllers
 {

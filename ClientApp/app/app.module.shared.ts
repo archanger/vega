@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { AppErrorHandler } from './components/app/app.error-handler';
+import { AuthService } from './services/auth.service';
 
 Raven
   .config('https://4d71486fe6c14a55ae43ff1f28672d5c@sentry.io/272515')
@@ -47,7 +48,8 @@ Raven
     ],
     providers: [
         { provide: ErrorHandler, useClass: AppErrorHandler },
-        VehicleService
+        VehicleService,
+        AuthService
     ]
 })
 export class AppModuleShared {
